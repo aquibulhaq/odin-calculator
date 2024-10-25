@@ -53,3 +53,20 @@ ol,
 ul {
   list-style-type: none;
 }
+
+#keypad {
+  background-color: black;
+}
+
+.key {
+  background-color: darkgray;
+  color: white;
+  width: 72px;
+  height: 54px;
+  border-radius: 12px;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
