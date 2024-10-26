@@ -71,6 +71,9 @@ ul {
 
 #display {
   background-color: white;
+  font-family: 'Roboto Mono', 'Courier New', Courier, monospace;
+  font-size: 52px;
+  text-align: right;
 }
 
 .row {
