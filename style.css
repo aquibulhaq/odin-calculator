@@ -62,7 +62,7 @@ ul {
   background-color: black;
   padding: 8px;
   border-radius: 8px;
-  font-family: Roboto, Arial, sans-serif;
+  font-family: Roboto, Arial, 'Helvetica Neue', Helvetica, sans-serif;
   font-size: 24px;
   display: inline-flex;
   flex-direction: column;
