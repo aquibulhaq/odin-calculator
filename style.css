@@ -79,3 +79,7 @@ ul {
   justify-content: center;
   align-items: center;
 }
+
+.key:active {
+  background-color: gray;
+}
