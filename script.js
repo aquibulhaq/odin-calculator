@@ -89,3 +89,15 @@ zeroButton.addEventListener('click', () => {
   display.textContent += 0;
   --numRemainingDigits;
 });
+
+let isDecimal = false;
+
+const decimalPointButton = document.querySelector('#decimal-point');
+decimalPointButton.addEventListener('click', () => {
+  if (isDecimal)
+    return;
+
+  display.textContent += '.';
+  isDecimal = true;
+  isZero = false;
+});
