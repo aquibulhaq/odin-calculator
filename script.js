@@ -34,3 +34,58 @@ function format(n) {
 
   return formatted;
 }
+
+const display = document.querySelector('#display');
+
+let isZero = true;
+let numRemainingDigits = 7;
+
+function enterNonzeroDigit(n) {
+  if (numRemainingDigits <= 0)
+    return;
+
+  if (isZero) {
+    display.textContent = n;
+  } else {
+    display.textContent += n;
+    --numRemainingDigits;
+  }
+
+  isZero = false;
+}
+
+const sevenButton = document.querySelector('#seven');
+sevenButton.addEventListener('click', () => enterNonzeroDigit(7));
+
+const eightButton = document.querySelector('#eight');
+eightButton.addEventListener('click', () => enterNonzeroDigit(8));
+
+const nineButton = document.querySelector('#nine');
+nineButton.addEventListener('click', () => enterNonzeroDigit(9));
+
+const fourButton = document.querySelector('#four');
+fourButton.addEventListener('click', () => enterNonzeroDigit(4));
+
+const fiveButton = document.querySelector('#five');
+fiveButton.addEventListener('click', () => enterNonzeroDigit(5));
+
+const sixButton = document.querySelector('#six');
+sixButton.addEventListener('click', () => enterNonzeroDigit(6));
+
+const oneButton = document.querySelector('#one');
+oneButton.addEventListener('click', () => enterNonzeroDigit(1));
+
+const twoButton = document.querySelector('#two');
+twoButton.addEventListener('click', () => enterNonzeroDigit(2));
+
+const threeButton = document.querySelector('#three');
+threeButton.addEventListener('click', () => enterNonzeroDigit(3));
+
+const zeroButton = document.querySelector('#zero');
+zeroButton.addEventListener('click', () => {
+  if (numRemainingDigits <= 0 || isZero)
+    return;
+
+  display.textContent += 0;
+  --numRemainingDigits;
+});
