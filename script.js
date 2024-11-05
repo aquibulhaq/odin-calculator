@@ -37,58 +37,62 @@ function format(n) {
 
 const display = document.querySelector('#display');
 
+let isInitial = true;
 let isZero = true;
 let numRemainingDigits = 7;
 
-function enterNonzeroDigit(n) {
+function resetDisplayState() {
+  isInitial = true;
+  isZero = true;
+  numRemainingDigits = 7;
+}
+
+function enterDigit(n) {
   if (numRemainingDigits <= 0)
     return;
 
   if (isZero) {
     display.textContent = n;
+    if (n !== 0)
+      isZero = false;
+    numRemainingDigits = 7;
   } else {
     display.textContent += n;
     --numRemainingDigits;
   }
 
-  isZero = false;
+  isInitial = false;
 }
 
 const sevenButton = document.querySelector('#seven');
-sevenButton.addEventListener('click', () => enterNonzeroDigit(7));
+sevenButton.addEventListener('click', () => enterDigit(7));
 
 const eightButton = document.querySelector('#eight');
-eightButton.addEventListener('click', () => enterNonzeroDigit(8));
+eightButton.addEventListener('click', () => enterDigit(8));
 
 const nineButton = document.querySelector('#nine');
-nineButton.addEventListener('click', () => enterNonzeroDigit(9));
+nineButton.addEventListener('click', () => enterDigit(9));
 
 const fourButton = document.querySelector('#four');
-fourButton.addEventListener('click', () => enterNonzeroDigit(4));
+fourButton.addEventListener('click', () => enterDigit(4));
 
 const fiveButton = document.querySelector('#five');
-fiveButton.addEventListener('click', () => enterNonzeroDigit(5));
+fiveButton.addEventListener('click', () => enterDigit(5));
 
 const sixButton = document.querySelector('#six');
-sixButton.addEventListener('click', () => enterNonzeroDigit(6));
+sixButton.addEventListener('click', () => enterDigit(6));
 
 const oneButton = document.querySelector('#one');
-oneButton.addEventListener('click', () => enterNonzeroDigit(1));
+oneButton.addEventListener('click', () => enterDigit(1));
 
 const twoButton = document.querySelector('#two');
-twoButton.addEventListener('click', () => enterNonzeroDigit(2));
+twoButton.addEventListener('click', () => enterDigit(2));
 
 const threeButton = document.querySelector('#three');
-threeButton.addEventListener('click', () => enterNonzeroDigit(3));
+threeButton.addEventListener('click', () => enterDigit(3));
 
 const zeroButton = document.querySelector('#zero');
-zeroButton.addEventListener('click', () => {
-  if (numRemainingDigits <= 0 || isZero)
-    return;
-
-  display.textContent += 0;
-  --numRemainingDigits;
-});
+zeroButton.addEventListener('click', () => enterDigit(0));
 
 let isDecimal = false;
 
@@ -99,5 +103,60 @@ decimalPointButton.addEventListener('click', () => {
 
   display.textContent += '.';
   isDecimal = true;
-  isZero = false;
+  isInitial = isZero = false;
+});
+
+let number1 = 0;
+let number2 = 0;
+let operator;
+
+function operate(operator, number1, number2) {
+  switch (operator) {
+    case '+':
+      return number1 + number2;
+
+    case '-':
+      return number1 - number2;
+
+    case '*':
+      return number1 * number2;
+
+    case '/':
+      return number1 / number2;
+  }
+}
+
+function handleOperator(nextOperator) {
+  if (operator && !isInitial) {
+    number2 = Number(display.textContent);
+    number1 = operate(operator, number1, number2);
+    display.textContent = format(number1);
+  } else {
+    number1 = Number(display.textContent);
+  }
+
+  operator = nextOperator;
+  resetDisplayState();
+}
+
+const plusButton = document.querySelector('#plus');
+plusButton.addEventListener('click', () => handleOperator('+'));
+
+const minusButton = document.querySelector('#minus');
+minusButton.addEventListener('click', () => handleOperator('-'));
+
+const multiplyButton = document.querySelector('#multiply');
+multiplyButton.addEventListener('click', () => handleOperator('*'));
+
+const divideButton = document.querySelector('#divide');
+divideButton.addEventListener('click', () => handleOperator('/'));
+
+const equalButton = document.querySelector('#equal');
+equalButton.addEventListener('click', () => {
+  if (operator && !isInitial) {
+    number2 = Number(display.textContent);
+    number1 = operate(operator, number1, number2);
+    display.textContent = format(number1);
+    resetDisplayState();
+  }
 });
